@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /crm/
+
+# Pastikan bahwa URL yang diminta bukan merupakan file atau direktori yang ada
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Atur aturan Rewrite untuk mengarahkan permintaan ke frontend/index.php
+RewriteRule ^(.*)$ frontend/index.php [QSA,L]
