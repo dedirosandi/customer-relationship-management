@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail->addAddress($email, $name);
         $mail->Subject = 'Verify Your Email';
         $mail->Body = "Hello $name, please click the link below to verify your email:\n";
-        $mail->Body .= "http://yourdomain.com/verify.php?code=$verificationCode";
+        $mail->Body .= "https://crm.skiddie-demo.com/verify/?code=$verificationCode";
 
         if ($mail->send()) {
             echo "Registration successful! Check your email for verification.";
