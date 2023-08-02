@@ -1,6 +1,6 @@
 <?php
 
-// use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\PHPMailer;
 // use PHPMailer\PHPMailer\Exception;
 
 require_once "../../env/connection.php"; // Sisipkan file koneksi.php
@@ -20,11 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Kirim email verifikasi menggunakan PHPMailer
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         $mail->isSMTP();
-        $mail->Host = 'mail.skiddie.id'; // Ganti dengan alamat host SMTP Anda
-        $mail->Port = 465; // Ganti dengan port SMTP yang sesuai
+        $mail->Host = 'smtp.gmail.com'; // Ganti dengan alamat host SMTP Anda
+        $mail->Port = 587; // Ganti dengan port SMTP yang sesuai
         $mail->SMTPAuth = true;
-        $mail->Username = 'verification@skiddie.id'; // Ganti dengan username SMTP Anda
-        $mail->Password = 'Indonesia12345'; // Ganti dengan password SMTP Anda
+        $mail->Username = 'skiddie.id@gmail.com'; // Ganti dengan username SMTP Anda
+        $mail->Password = 'zbjewozgaszkvjno'; // Ganti dengan password SMTP Anda
         $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
         $mail->setFrom('verification@skiddie.id', 'Your Name'); // Ganti dengan alamat email dan nama pengirim yang sesuai
         $mail->addAddress($email, $name);
