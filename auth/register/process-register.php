@@ -1,8 +1,4 @@
 <?php
-
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
-
 require_once "../../env/connection.php"; // Sisipkan file koneksi.php
 require_once "../../env/PHPMailer/src/PHPMailer.php";
 require_once "../../env/PHPMailer/src/SMTP.php";
@@ -13,6 +9,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
     $password = password_hash($_POST["password"], PASSWORD_BCRYPT); // Hash the password
     $verificationCode = md5(uniqid(rand(), true)); // Generate a unique verification code
+
+    // Cek apakah email sudah terdaftar di database
+    $query_check_email = "SELECT * FROM tb_user WHERE email = '$email'";
+    $result_check_email = mysqli_query($koneksi, $query_check_email);
+
+    if (mysqli_num_rows($result_check_email) > 0) {
+        // Jika email sudah terdaftar, arahkan ke halaman login
+        header("Location: https://crm.skiddie-demo.com/login/");
+        exit;
+    }
 
     // Simpan data pengguna ke database
     $query = "INSERT INTO tb_user (name, email, password, verification_code) VALUES ('$name', '$email', '$password', '$verificationCode')";
