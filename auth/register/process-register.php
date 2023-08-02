@@ -1,12 +1,12 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\PHPMailer;
 // use PHPMailer\PHPMailer\Exception;
 
 require_once "../../env/connection.php"; // Sisipkan file koneksi.php
-require_once "../../PHPMailer/src/PHPMailer.php";
-require_once "../../PHPMailer/src/SMTP.php";
-require_once "../../PHPMailer/src/Exception.php";
+require_once "../../env/PHPMailer/src/PHPMailer.php";
+require_once "../../env/PHPMailer/src/SMTP.php";
+require_once "../../env/PHPMailer/src/Exception.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = $_POST["name"];
