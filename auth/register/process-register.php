@@ -1,5 +1,12 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
+
 require_once "../../env/connection.php"; // Sisipkan file koneksi.php
+require_once "../../PHPMailer/src/PHPMailer.php";
+require_once "../../PHPMailer/src/SMTP.php";
+require_once "../../PHPMailer/src/Exception.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = $_POST["name"];
@@ -10,13 +17,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Simpan data pengguna ke database
     $query = "INSERT INTO tb_user (name, email, password, verification_code) VALUES ('$name', '$email', '$password', '$verificationCode')";
     if (mysqli_query($koneksi, $query)) {
-        // Kirim email verifikasi
-        $subject = "Verify Your Email";
-        $message = "Hello $name, please click the link below to verify your email:\n";
-        $message .= "http://yourdomain.com/verify.php?code=$verificationCode";
-        $headers = "From: dedi.rosandi@skiddie.com"; // Ganti dengan alamat email yang sesuai
+        // Kirim email verifikasi menggunakan PHPMailer
+        $mail = new PHPMailer\PHPMailer\PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'mail.skiddie.id'; // Ganti dengan alamat host SMTP Anda
+        $mail->Port = 465; // Ganti dengan port SMTP yang sesuai
+        $mail->SMTPAuth = true;
+        $mail->Username = 'verification@skiddie.id'; // Ganti dengan username SMTP Anda
+        $mail->Password = 'Indonesia12345'; // Ganti dengan password SMTP Anda
+        $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->setFrom('verification@skiddie.id', 'Your Name'); // Ganti dengan alamat email dan nama pengirim yang sesuai
+        $mail->addAddress($email, $name);
+        $mail->Subject = 'Verify Your Email';
+        $mail->Body = "Hello $name, please click the link below to verify your email:\n";
+        $mail->Body .= "http://yourdomain.com/verify.php?code=$verificationCode";
 
-        if (mail($email, $subject, $message, $headers)) {
+        if ($mail->send()) {
             echo "Registration successful! Check your email for verification.";
         } else {
             echo "Failed to send verification email. Please contact support.";
