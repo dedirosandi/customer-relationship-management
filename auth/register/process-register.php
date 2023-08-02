@@ -1,5 +1,5 @@
 <?php
-require_once "../../env/connection.php"; // Sisipkan file koneksi.php
+require_once "..\..\env/connection.php"; // Sisipkan file koneksi.php
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = $_POST["name"];
