@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $subject = "Verify Your Email";
         $message = "Hello $name, please click the link below to verify your email:\n";
         $message .= "http://yourdomain.com/verify.php?code=$verificationCode";
-        $headers = "From: your_email@example.com"; // Ganti dengan alamat email yang sesuai
+        $headers = "From: dedi.rosandi@skiddie.com"; // Ganti dengan alamat email yang sesuai
 
         if (mail($email, $subject, $message, $headers)) {
             echo "Registration successful! Check your email for verification.";
